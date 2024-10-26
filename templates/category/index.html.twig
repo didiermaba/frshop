@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les catégories
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2>Catégories</h2> <br><br>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nom</th>
+					<th style='width: 200px'>Actions</th>
+				</tr>
+			</thead>
+			<thead></thead>
+			<tbody>
+				{% for category in categories %}
+					<tr>
+						<td>{{ category.id }}</td>
+						<td>{{ category.name }}</td>
+                        <td>
+						<div class="d-flex gap-1">
+							<a class="btn btn-primary" href="{{ path('category_update', { id: category.id }) }}">Editer</a>
+							<form action="{{ path('category_delete', {id: category.id} )}}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger" type="submit">Supprimer</button>
+							</form>
+                            {# <a class="btn btn-danger" href="{{ path('category_delete', {id: category.id} )}}">Supprimer</a> #}
+						</div>
+					</td>
+					</tr>
+				{% else %}
+					<p>Aucune catégorie à afficher pour l'instant</p>
+				{% endfor %}
+			</tbody>
+		</table>
+
+        	<p><a class="btn btn-outline-primary" href="{{ path('category_new') }}">Ajouter une catégorie</a></p>
+
+	</div>
+{% endblock %}
